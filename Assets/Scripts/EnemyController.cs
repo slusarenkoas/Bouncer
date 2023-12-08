@@ -4,14 +4,9 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Renderer _color;
-    
     private Color _currentColor;
-    private BoxCollider _collider;
 
-    private void Awake()
-    {
-        _collider = GetComponent<BoxCollider>();
-    }
+    public static event Action <Color> PresentTook;
 
     public void Initialized (Color randomColor,Vector3 startPosition)
     {
@@ -20,6 +15,7 @@ public class EnemyController : MonoBehaviour
         _color.materials[1].color = _currentColor;
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
         
@@ -27,7 +23,10 @@ public class EnemyController : MonoBehaviour
         
         if (player.СurrentColor == _currentColor)
         {
+            PresentTook?.Invoke(_currentColor);
             Destroy(gameObject);
         }
     }
+    
+    
 }

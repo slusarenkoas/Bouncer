@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,11 +11,36 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private GameObject _candy;
     [SerializeField] private ColorManager _colorManager;
 
+    public int RedPresents { get; private set; }
+    public int GreenPresents { get; private set; }
+    public int BluePresents { get; private set; }
     
     private void Start()
     {
         SpawnEnemiesOnTheBoard();
         FirstSpawnCandyOnTheBoard();
+        EnemyController.PresentTook += SubtractPresent;
+    }
+
+    private void OnDestroy()
+    {
+        EnemyController.PresentTook -= SubtractPresent;
+    }
+
+    private void SubtractPresent(Color color)
+    {
+        if (color == Color.red)
+        {
+            RedPresents--;
+        }
+        else if (color == Color.blue)
+        {
+            BluePresents--;
+        }
+        else if (color == Color.green)
+        {
+            GreenPresents--;
+        }
     }
 
     private void SpawnEnemiesOnTheBoard()
@@ -22,7 +48,21 @@ public class SpawnerController : MonoBehaviour
         for (var i = 0; i < _countEnemy; i++)
         {
             var enemy = Instantiate(_enemyPrefab);
-            enemy.GetComponent<EnemyController>().Initialized(_colorManager.GetRandomColor(), GetRandomPosition());
+            var color = _colorManager.GetRandomColor();
+            enemy.GetComponent<EnemyController>().Initialized(color, GetRandomPosition());
+            
+            if (color == Color.red)
+            {
+                RedPresents++;
+            }
+            else if (color == Color.blue)
+            {
+                BluePresents++;
+            }
+            else if (color == Color.green)
+            {
+                GreenPresents++;
+            }
         }
     }
 
@@ -38,4 +78,3 @@ public class SpawnerController : MonoBehaviour
             Random.Range(-_gameBoard.y, _gameBoard.y));
     }
 }
-

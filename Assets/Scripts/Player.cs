@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _force = 150;
     [SerializeField] private Renderer _color;
 
+    public int CountsMoving { get; private set; }
     private Rigidbody _rigidbody;
     private Camera _camera;
     public Color СurrentColor { get; private set; }
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
         var direction = (hitInfo - transform.position).normalized;
 
         _rigidbody.AddForce(new Vector3(direction.x,0,direction.z) * _force);
+
+        CountsMoving++;
     }
 
     public void SetColor(Color color)
