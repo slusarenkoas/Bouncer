@@ -1,28 +1,20 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
-public class ColorManager : MonoBehaviour
+[Serializable]
+public class ColorManager
 {
-    [SerializeField] private Color _colorOne = Color.blue;
-    [SerializeField] private Color _colorTwo = Color.green;
-    [SerializeField] private Color _colorThird = Color.red;
+    [SerializeField] private Color[] _colors;
     
-    
-    private readonly List<Color> _colors = new List<Color>();
-
-    private void Awake()
-    {
-        _colors.Add(_colorOne);
-        _colors.Add(_colorTwo);
-        _colors.Add(_colorThird);
-    }
-
     public Color GetRandomColor()
     {
-        var random = new Random();
-        var index = random.Next(0, _colors.Count);
-
+        var index = Random.Range(0, _colors.Length);
         return _colors[index];
+    }
+
+    public Color[] GetAllColors()
+    {
+        return _colors;
     }
 }

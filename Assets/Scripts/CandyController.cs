@@ -1,31 +1,60 @@
+using Player;
 using UnityEngine;
 
 public class CandyController : MonoBehaviour
 {
     [SerializeField] private Renderer _renderer;
-    private SpawnerController _spawnerController;
-    private ColorManager _colorManager;
     
-    private Color _currentColor;
+    private ColorManager _colorManager;
+    private float _clearRadiusAroundGameObject;
+    private Vector2 _gameBoardSize;
+    private Color _color;
+    private Material _material;
 
-    public void Initialized(ColorManager colorManager, SpawnerController spawnerController)
+    public void Initialize(ColorManager colorManager, Vector2 gameBorder, float clearRadiusAroundGameObject)
     {
-        _spawnerController = spawnerController;
         _colorManager = colorManager;
-        
-        transform.position = _spawnerController.GetRandomPosition();
-        _currentColor = _colorManager.GetRandomColor();
-        _renderer.materials[1].color = _currentColor;
+        _gameBoardSize = gameBorder;
+        _clearRadiusAroundGameObject = clearRadiusAroundGameObject;
+
+        var materials = _renderer.materials;
+        _material = materials.GetColoredMaterial();
+        _color = _material.color;
+    }
+
+    private void Start()
+    {
+        SetPosition();
+        SetColor();
+    }
+
+    private void SetColor()
+    {
+        var newColor = _colorManager.GetRandomColor();
+
+        _material.color = newColor;
+        _color = newColor;
+    }
+
+    private void SetPosition()
+    {
+        var position = RandomGeneratorPosition.GetRandomPositionOnBoard(_gameBoardSize);
+
+        while (position.HasCollision(_clearRadiusAroundGameObject))
+        {
+            position = RandomGeneratorPosition.GetRandomPositionOnBoard(_gameBoardSize);
+        }
+
+        transform.position = position;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Player>(out var player))
+        if (other.TryGetComponent<PlayerColorController>(out var player))
         {
-            player.SetColor(_currentColor);
-            transform.position = _spawnerController.GetRandomPosition();
-            _currentColor = _colorManager.GetRandomColor();
-            _renderer.materials[1].color = _currentColor;
+            player.SetColor(_color);
+            SetPosition();
+            SetColor();
         }
     }
 }

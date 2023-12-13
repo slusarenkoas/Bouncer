@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5568511417718030359}
-  - component: {fileID: 3933334993930866247}
-  - component: {fileID: 5017572080225418759}
+  - component: {fileID: 2611068493236491092}
+  - component: {fileID: 1555304976861754317}
   m_Layer: 0
   m_Name: Candy
   m_TagString: Untagged
@@ -34,20 +34,7 @@ Transform:
   - {fileID: 5390222561861798519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3933334993930866247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5568511417718030358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af7f95ebe4d918d47b9ac628fcdef32c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 6523118814267076888}
---- !u!65 &5017572080225418759
+--- !u!65 &2611068493236491092
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,8 +53,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.264267, y: 0.3009151, z: 0.26084757}
-  m_Center: {x: 0.03575347, y: -0.012072255, z: -0.10185936}
+  m_Size: {x: 0.14592357, y: 0.25729683, z: 0.093065225}
+  m_Center: {x: 0.044995435, y: -0.011644304, z: -0.0011154674}
+--- !u!114 &1555304976861754317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568511417718030358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7f95ebe4d918d47b9ac628fcdef32c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 6523118814267076888}
 --- !u!1001 &3861348222606789203
 PrefabInstance:
   m_ObjectHideFlags: 0
